@@ -1,0 +1,74 @@
+version: "2.2"
+services:
+    jobmanager:
+        image: flink-sample
+        build:
+            context: beam-app
+            dockerfile: Dockerfile
+        depends_on:
+            - kafka
+        ports:
+            - "8081:8081"
+            #--fromSavepoint=/state/savepoint/RDBSavePointShouldRemoveMultipleKafkaOperatorsState
+        command: standalone-job --fromSavepoint=/state/savepoint/RDBSavePointShouldRemoveMultipleKafkaOperatorsState --job-classname org.example.kafkaoffset.MultipleKafkaOperatorsApp --parallelism=3 --runner=FlinkRunner --checkpointingInterval=10000
+        environment:
+            - |
+                FLINK_PROPERTIES=
+                jobmanager.rpc.address: jobmanager
+                parallelism.default: 1
+                state.backend: rocksdb
+                state.backend.incremental: true
+                state.savepoints.dir: file:///state/savepoint/
+                state.checkpoints.dir: file:///state/checkpoint/
+        volumes:
+            - ./state:/state
+
+    taskmanager:
+        image: flink-sample
+        # build:
+        #     context: beam-app
+        #     dockerfile: Dockerfile
+        depends_on:
+            - jobmanager
+        command: taskmanager
+        scale: 1
+        environment:
+            - |
+                FLINK_PROPERTIES=
+                jobmanager.rpc.address: jobmanager
+                taskmanager.numberOfTaskSlots: 3
+                parallelism.default: 1
+                state.checkpoints.dir: file:///state/checkpoint/
+        volumes:
+            - ./state:/state
+
+    zookeeper:
+        image: confluentinc/cp-zookeeper:6.1.1
+        environment:
+            ZOOKEEPER_CLIENT_PORT: 2181
+            ZOOKEEPER_TICK_TIME: 2000
+        ports:
+            - 22181:2181
+
+    kafka:
+        image: confluentinc/cp-kafka:6.1.1
+        depends_on:
+            - zookeeper
+        ports:
+            - 29092:29092
+        environment:
+            KAFKA_BROKER_ID: 1
+            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+    kowl:
+        image: quay.io/cloudhut/kowl:master
+        environment:
+            KAFKA_BROKERS: kafka:9092
+        ports:
+            - 8094:8080
+
+# volumes:
+#   - ./state
