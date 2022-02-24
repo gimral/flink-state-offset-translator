@@ -20,3 +20,5 @@ log/
 **/target/**
 
 **/.flattened-pom*.xml
+
+**/state/

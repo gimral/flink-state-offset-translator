@@ -10,7 +10,7 @@ services:
         ports:
             - "8081:8081"
             #--fromSavepoint=/state/savepoint/RDBSavePointShouldRemoveMultipleKafkaOperatorsState
-        command: standalone-job --fromSavepoint=/state/savepoint/RDBSavePointShouldRemoveMultipleKafkaOperatorsState --job-classname org.example.kafkaoffset.MultipleKafkaOperatorsApp --parallelism=3 --runner=FlinkRunner --checkpointingInterval=10000
+        command: standalone-job --job-classname org.example.kafkaoffset.MultipleKafkaOperatorsApp --parallelism=3 --runner=FlinkRunner --checkpointingInterval=10000
         environment:
             - |
                 FLINK_PROPERTIES=
