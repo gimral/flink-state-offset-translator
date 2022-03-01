@@ -1,7 +1,7 @@
-package com.enbd.flink.state.savepoint;
+package flink.state.savepoint;
 
-import com.enbd.flink.state.StateTypeProvider;
-import com.enbd.flink.state.operator.DefaultOperatorExtractor;
+import flink.state.StateTypeProvider;
+import flink.state.operator.DefaultOperatorExtractor;
 import org.apache.beam.sdk.io.UnboundedSource;
 import org.apache.beam.sdk.io.kafka.KafkaCheckpointMark;
 import org.apache.beam.sdk.io.kafka.KafkaRecord;

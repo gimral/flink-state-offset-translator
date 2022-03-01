@@ -1,8 +1,8 @@
-package com.enbd.flink.state.savepoint;
+package flink.state.savepoint;
 
-import com.enbd.flink.state.operator.DummyOperatorTransformation;
-import com.enbd.flink.state.operator.DefaultOperatorExtractor;
-import com.enbd.flink.state.operator.OffsetResetBootstrapFunction;
+import flink.state.operator.DummyOperatorTransformation;
+import flink.state.operator.DefaultOperatorExtractor;
+import flink.state.operator.OffsetResetBootstrapFunction;
 import org.apache.beam.sdk.io.UnboundedSource;
 import org.apache.beam.sdk.io.kafka.KafkaCheckpointMark;
 import org.apache.beam.sdk.io.kafka.KafkaRecord;
@@ -19,7 +19,7 @@ import org.apache.flink.state.api.OperatorTransformation;
 import org.apache.flink.state.api.Savepoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.enbd.flink.state.StateTypeProvider;
+import flink.state.StateTypeProvider;
 
 import java.util.List;
 

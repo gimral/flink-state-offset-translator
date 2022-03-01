@@ -21,4 +21,4 @@ log/
 
 **/.flattened-pom*.xml
 
-state/
+state-volume/

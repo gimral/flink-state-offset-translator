@@ -1,4 +1,4 @@
-package com.enbd.flink.state.operator;
+package flink.state.operator;
 
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;

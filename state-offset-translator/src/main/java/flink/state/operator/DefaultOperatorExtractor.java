@@ -1,10 +1,9 @@
-package com.enbd.flink.state.operator;
+package flink.state.operator;
 
 import org.apache.flink.runtime.checkpoint.OperatorState;
 import org.apache.flink.runtime.checkpoint.OperatorSubtaskState;
 import org.apache.flink.runtime.state.DefaultOperatorStateBackend;
 import org.apache.flink.state.api.runtime.metadata.SavepointMetadata;
-import com.enbd.flink.state.StateTypeProvider;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package com.enbd.flink.state;
+package flink.state;
 
 import org.apache.beam.runners.flink.translation.types.CoderTypeInformation;
 import org.apache.beam.sdk.coders.AvroCoder;

@@ -9,7 +9,7 @@ services:
             - kafka
         ports:
             - "8081:8081"
-            #--fromSavepoint=/state/savepoint/RDBSavePointShouldRemoveMultipleKafkaOperatorsState
+            #--fromSavepoint=/state-volume/savepoint/RDBSavePointShouldRemoveMultipleKafkaOperatorsState
         command: standalone-job --job-classname org.example.kafkaoffset.MultipleKafkaOperatorsApp --parallelism=3 --runner=FlinkRunner --checkpointingInterval=10000
         environment:
             - |
@@ -18,10 +18,10 @@ services:
                 parallelism.default: 1
                 state.backend: rocksdb
                 state.backend.incremental: true
-                state.savepoints.dir: file:///state/savepoint/
-                state.checkpoints.dir: file:///state/checkpoint/
+                state.savepoints.dir: file:///state-volume/savepoint/
+                state.checkpoints.dir: file:///state-volume/checkpoint/
         volumes:
-            - ./state:/state
+            - ./state-volume:/state-volume
 
     taskmanager:
         image: flink-sample
@@ -38,9 +38,9 @@ services:
                 jobmanager.rpc.address: jobmanager
                 taskmanager.numberOfTaskSlots: 3
                 parallelism.default: 1
-                state.checkpoints.dir: file:///state/checkpoint/
+                state.checkpoints.dir: file:///state-volume/checkpoint/
         volumes:
-            - ./state:/state
+            - ./state-volume:/state-volume
 
     zookeeper:
         image: confluentinc/cp-zookeeper:6.1.1

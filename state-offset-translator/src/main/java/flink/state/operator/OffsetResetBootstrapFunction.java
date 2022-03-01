@@ -1,4 +1,4 @@
-package com.enbd.flink.state.operator;
+package flink.state.operator;
 
 import org.apache.beam.sdk.io.UnboundedSource;
 import org.apache.beam.sdk.io.kafka.KafkaCheckpointMark;
@@ -10,7 +10,7 @@ import org.apache.flink.runtime.state.DefaultOperatorStateBackend;
 import org.apache.flink.runtime.state.FunctionInitializationContext;
 import org.apache.flink.runtime.state.FunctionSnapshotContext;
 import org.apache.flink.state.api.functions.StateBootstrapFunction;
-import com.enbd.flink.state.StateTypeProvider;
+import flink.state.StateTypeProvider;
 
 import java.util.List;
 import java.util.stream.Collectors;
